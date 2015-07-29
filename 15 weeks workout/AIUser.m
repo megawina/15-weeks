@@ -10,4 +10,22 @@
 
 @implementation AIUser
 
+- (void) saveUser:(AIUser*) user {
+    
+    [[NSUserDefaults standardUserDefaults] setInteger:user.trainingDay forKey:@"trainingDay"];
+    [[NSUserDefaults standardUserDefaults] setValue:user.lastTrainingDate forKey:@"lastTrainingDate"];
+    
+}
+
++ (AIUser*) currentUser {
+    
+    AIUser* user = [[AIUser alloc] init];
+    
+    user.trainingDay = [[NSUserDefaults standardUserDefaults] integerForKey:@"trainingDay"];
+    user.lastTrainingDate = [[NSUserDefaults standardUserDefaults] valueForKey:@"lastTrainingDate"];
+    
+    return user;
+    
+}
+
 @end
