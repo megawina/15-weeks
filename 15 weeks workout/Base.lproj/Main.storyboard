@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="3dX-J6-Slw">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
@@ -158,10 +158,10 @@
             </objects>
             <point key="canvasLocation" x="-496" y="680"/>
         </scene>
-        <!--View Controller-->
+        <!--Day View Controller-->
         <scene sceneID="rM6-t7-NcH">
             <objects>
-                <viewController id="zFW-uZ-fID" sceneMemberID="viewController">
+                <viewController id="zFW-uZ-fID" customClass="AIDayViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="F9O-rI-7wl"/>
                         <viewControllerLayoutGuide type="bottom" id="HEz-Qt-OZh"/>
@@ -210,14 +210,8 @@
                                 <color key="textColor" red="0.98823529409999999" green="0.38431372549999998" blue="0.36470588240000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="pull-ups" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K0O-uS-SHa">
-                                <rect key="frame" x="62" y="318" width="60" height="14"/>
-                                <fontDescription key="fontDescription" name="AvenirNextCondensed-Medium" family="Avenir Next Condensed" pointSize="14"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="push-ups" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kcf-1j-Rno">
-                                <rect key="frame" x="135" y="318" width="60" height="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="push-ups" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K0O-uS-SHa">
+                                <rect key="frame" x="62" y="318" width="60" height="20"/>
                                 <fontDescription key="fontDescription" name="AvenirNextCondensed-Medium" family="Avenir Next Condensed" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -240,6 +234,12 @@
                                     <action selector="actionHowToUse:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="xpp-hG-KaN"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="pull-ups" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kcf-1j-Rno">
+                                <rect key="frame" x="135" y="318" width="60" height="20"/>
+                                <fontDescription key="fontDescription" name="AvenirNextCondensed-Medium" family="Avenir Next Condensed" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.2196078431372549" green="0.24705882352941178" blue="0.29019607843137257" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -247,10 +247,111 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jJj-jC-FjO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-84" y="680"/>
+            <point key="canvasLocation" x="-43" y="680"/>
+        </scene>
+        <!--Exercises View Controller-->
+        <scene sceneID="vzh-sq-tV9">
+            <objects>
+                <tableViewController id="3dX-J6-Slw" customClass="AIExercisesViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="140" sectionHeaderHeight="22" sectionFooterHeight="22" id="TfA-F2-kh8">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellIdentifier" rowHeight="140" id="nL3-hs-6fP" customClass="AIExerciseCell">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nL3-hs-6fP" id="diz-Bx-7ul">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="PUSH-UPS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPf-80-8xs">
+                                            <rect key="frame" x="8" y="18" width="75" height="20"/>
+                                            <fontDescription key="fontDescription" name="AvenirNextCondensed-Medium" family="Avenir Next Condensed" pointSize="14"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TOTAL: 65" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sdf-8x-KuY">
+                                            <rect key="frame" x="237" y="111" width="75" height="20"/>
+                                            <fontDescription key="fontDescription" name="AvenirNextCondensed-Medium" family="Avenir Next Condensed" pointSize="16"/>
+                                            <color key="textColor" red="0.98823529409999999" green="0.38431372549999998" blue="0.36470588240000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yoJ-mJ-5Ab">
+                                            <rect key="frame" x="128" y="50" width="40" height="40"/>
+                                            <fontDescription key="fontDescription" name="AvenirNextCondensed-Medium" family="Avenir Next Condensed" pointSize="17"/>
+                                            <state key="normal" title="17" backgroundImage="circle_lightblue.png">
+                                                <color key="titleColor" red="0.21960784310000001" green="0.2470588235" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                        <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HkD-vh-Rd0">
+                                            <rect key="frame" x="176" y="50" width="40" height="40"/>
+                                            <fontDescription key="fontDescription" name="AvenirNextCondensed-Medium" family="Avenir Next Condensed" pointSize="17"/>
+                                            <state key="normal" title="20" backgroundImage="circle_blue.png">
+                                                <color key="titleColor" red="0.21960784310000001" green="0.2470588235" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                        <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s5R-be-3QM">
+                                            <rect key="frame" x="224" y="50" width="40" height="40"/>
+                                            <fontDescription key="fontDescription" name="AvenirNextCondensed-Medium" family="Avenir Next Condensed" pointSize="17"/>
+                                            <state key="normal" title="25" backgroundImage="circle_orange.png">
+                                                <color key="titleColor" red="0.21960784310000001" green="0.2470588235" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                        <button opaque="NO" tag="4" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DeW-eP-3hZ">
+                                            <rect key="frame" x="272" y="50" width="40" height="40"/>
+                                            <fontDescription key="fontDescription" name="AvenirNextCondensed-Medium" family="Avenir Next Condensed" pointSize="17"/>
+                                            <state key="normal" title="30" backgroundImage="circle_red.png">
+                                                <color key="titleColor" red="0.21960784310000001" green="0.2470588235" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ENG-4o-lhy">
+                                            <rect key="frame" x="80" y="50" width="40" height="40"/>
+                                            <fontDescription key="fontDescription" name="AvenirNextCondensed-Medium" family="Avenir Next Condensed" pointSize="17"/>
+                                            <state key="normal" title="14" backgroundImage="circle_gray.png">
+                                                <color key="titleColor" red="0.21960784310000001" green="0.2470588235" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                        <view alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vX9-Uk-rBi" userLabel="state">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="139"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.21960784310000001" green="0.2470588235" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="exerciseLabel" destination="oPf-80-8xs" id="zzm-YE-qzg"/>
+                                    <outlet property="fifthStepButton" destination="DeW-eP-3hZ" id="uXv-Ye-4o8"/>
+                                    <outlet property="firstStepButton" destination="ENG-4o-lhy" id="Dh5-Px-O0f"/>
+                                    <outlet property="fourthStepButton" destination="s5R-be-3QM" id="Cng-9s-3BW"/>
+                                    <outlet property="secondStepButton" destination="yoJ-mJ-5Ab" id="Gbk-2O-5cQ"/>
+                                    <outlet property="stateView" destination="vX9-Uk-rBi" id="lXF-KK-vOM"/>
+                                    <outlet property="thirdStepButton" destination="HkD-vh-Rd0" id="USz-8O-Apd"/>
+                                    <outlet property="totalLabel" destination="Sdf-8x-KuY" id="BCD-it-VZr"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="3dX-J6-Slw" id="x33-GL-9NK"/>
+                            <outlet property="delegate" destination="3dX-J6-Slw" id="GTu-db-1DT"/>
+                        </connections>
+                    </tableView>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gPM-P2-gHM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="424" y="680"/>
         </scene>
     </scenes>
     <resources>
+        <image name="circle_blue.png" width="128" height="128"/>
+        <image name="circle_gray.png" width="128" height="128"/>
+        <image name="circle_lightblue.png" width="128" height="128"/>
+        <image name="circle_orange.png" width="128" height="128"/>
+        <image name="circle_red.png" width="128" height="128"/>
         <image name="push_up.jpg" width="1024" height="768"/>
         <image name="red.png" width="128" height="128"/>
         <image name="tap.png" width="175" height="172"/>

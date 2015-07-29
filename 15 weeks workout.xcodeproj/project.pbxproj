@@ -18,6 +18,14 @@
 		7BFC5A7C1B67E85500C3AD7F /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BFC5A7B1B67E85500C3AD7F /* green.png */; };
 		7BFC5A7E1B67E8FD00C3AD7F /* tap.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BFC5A7D1B67E8FD00C3AD7F /* tap.png */; };
 		7BFC5A801B67E95600C3AD7F /* red.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BFC5A7F1B67E95600C3AD7F /* red.png */; };
+		7BFC5A871B68DF3500C3AD7F /* circle_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BFC5A821B68DF3500C3AD7F /* circle_blue.png */; };
+		7BFC5A881B68DF3500C3AD7F /* circle_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BFC5A831B68DF3500C3AD7F /* circle_gray.png */; };
+		7BFC5A891B68DF3500C3AD7F /* circle_lightblue.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BFC5A841B68DF3500C3AD7F /* circle_lightblue.png */; };
+		7BFC5A8A1B68DF3500C3AD7F /* circle_orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BFC5A851B68DF3500C3AD7F /* circle_orange.png */; };
+		7BFC5A8B1B68DF3500C3AD7F /* circle_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BFC5A861B68DF3500C3AD7F /* circle_red.png */; };
+		7BFC5A8E1B68E18C00C3AD7F /* AIDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BFC5A8D1B68E18C00C3AD7F /* AIDayViewController.m */; };
+		7BFC5A911B68E1B200C3AD7F /* AIExercisesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BFC5A901B68E1B200C3AD7F /* AIExercisesViewController.m */; };
+		7BFC5A941B68E1CF00C3AD7F /* AIExerciseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BFC5A931B68E1CF00C3AD7F /* AIExerciseCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +56,17 @@
 		7BFC5A7B1B67E85500C3AD7F /* green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green.png; sourceTree = "<group>"; };
 		7BFC5A7D1B67E8FD00C3AD7F /* tap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tap.png; sourceTree = "<group>"; };
 		7BFC5A7F1B67E95600C3AD7F /* red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = red.png; sourceTree = "<group>"; };
+		7BFC5A821B68DF3500C3AD7F /* circle_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle_blue.png; sourceTree = "<group>"; };
+		7BFC5A831B68DF3500C3AD7F /* circle_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle_gray.png; sourceTree = "<group>"; };
+		7BFC5A841B68DF3500C3AD7F /* circle_lightblue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle_lightblue.png; sourceTree = "<group>"; };
+		7BFC5A851B68DF3500C3AD7F /* circle_orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle_orange.png; sourceTree = "<group>"; };
+		7BFC5A861B68DF3500C3AD7F /* circle_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle_red.png; sourceTree = "<group>"; };
+		7BFC5A8C1B68E18C00C3AD7F /* AIDayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIDayViewController.h; sourceTree = "<group>"; };
+		7BFC5A8D1B68E18C00C3AD7F /* AIDayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIDayViewController.m; sourceTree = "<group>"; };
+		7BFC5A8F1B68E1B200C3AD7F /* AIExercisesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIExercisesViewController.h; sourceTree = "<group>"; };
+		7BFC5A901B68E1B200C3AD7F /* AIExercisesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIExercisesViewController.m; sourceTree = "<group>"; };
+		7BFC5A921B68E1CF00C3AD7F /* AIExerciseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIExerciseCell.h; sourceTree = "<group>"; };
+		7BFC5A931B68E1CF00C3AD7F /* AIExerciseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIExerciseCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,9 +110,9 @@
 			children = (
 				7BFC5A541B67DB7500C3AD7F /* AppDelegate.h */,
 				7BFC5A551B67DB7500C3AD7F /* AppDelegate.m */,
-				7BFC5A571B67DB7500C3AD7F /* AIMainViewController.h */,
-				7BFC5A581B67DB7500C3AD7F /* AIMainViewController.m */,
 				7BFC5A5A1B67DB7500C3AD7F /* Main.storyboard */,
+				7BFC5A951B68E1D800C3AD7F /* Views */,
+				7BFC5A961B68E1E100C3AD7F /* Cells */,
 				7BFC5A5D1B67DB7500C3AD7F /* Images.xcassets */,
 				7BFC5A5F1B67DB7500C3AD7F /* LaunchScreen.xib */,
 				7BFC5A761B67DF8800C3AD7F /* Images */,
@@ -131,12 +150,47 @@
 		7BFC5A761B67DF8800C3AD7F /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7BFC5A811B68DF3500C3AD7F /* Cell */,
 				7BFC5A791B67E01400C3AD7F /* push_up.jpg */,
 				7BFC5A7B1B67E85500C3AD7F /* green.png */,
 				7BFC5A7D1B67E8FD00C3AD7F /* tap.png */,
 				7BFC5A7F1B67E95600C3AD7F /* red.png */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		7BFC5A811B68DF3500C3AD7F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				7BFC5A821B68DF3500C3AD7F /* circle_blue.png */,
+				7BFC5A831B68DF3500C3AD7F /* circle_gray.png */,
+				7BFC5A841B68DF3500C3AD7F /* circle_lightblue.png */,
+				7BFC5A851B68DF3500C3AD7F /* circle_orange.png */,
+				7BFC5A861B68DF3500C3AD7F /* circle_red.png */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		7BFC5A951B68E1D800C3AD7F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7BFC5A571B67DB7500C3AD7F /* AIMainViewController.h */,
+				7BFC5A581B67DB7500C3AD7F /* AIMainViewController.m */,
+				7BFC5A8C1B68E18C00C3AD7F /* AIDayViewController.h */,
+				7BFC5A8D1B68E18C00C3AD7F /* AIDayViewController.m */,
+				7BFC5A8F1B68E1B200C3AD7F /* AIExercisesViewController.h */,
+				7BFC5A901B68E1B200C3AD7F /* AIExercisesViewController.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		7BFC5A961B68E1E100C3AD7F /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				7BFC5A921B68E1CF00C3AD7F /* AIExerciseCell.h */,
+				7BFC5A931B68E1CF00C3AD7F /* AIExerciseCell.m */,
+			);
+			name = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,12 +273,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BFC5A891B68DF3500C3AD7F /* circle_lightblue.png in Resources */,
+				7BFC5A881B68DF3500C3AD7F /* circle_gray.png in Resources */,
 				7BFC5A5C1B67DB7500C3AD7F /* Main.storyboard in Resources */,
 				7BFC5A611B67DB7500C3AD7F /* LaunchScreen.xib in Resources */,
 				7BFC5A7C1B67E85500C3AD7F /* green.png in Resources */,
+				7BFC5A8B1B68DF3500C3AD7F /* circle_red.png in Resources */,
+				7BFC5A871B68DF3500C3AD7F /* circle_blue.png in Resources */,
 				7BFC5A7E1B67E8FD00C3AD7F /* tap.png in Resources */,
 				7BFC5A801B67E95600C3AD7F /* red.png in Resources */,
 				7BFC5A5E1B67DB7500C3AD7F /* Images.xcassets in Resources */,
+				7BFC5A8A1B68DF3500C3AD7F /* circle_orange.png in Resources */,
 				7BFC5A7A1B67E01400C3AD7F /* push_up.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -244,8 +303,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BFC5A591B67DB7500C3AD7F /* AIMainViewController.m in Sources */,
+				7BFC5A911B68E1B200C3AD7F /* AIExercisesViewController.m in Sources */,
 				7BFC5A561B67DB7500C3AD7F /* AppDelegate.m in Sources */,
+				7BFC5A941B68E1CF00C3AD7F /* AIExerciseCell.m in Sources */,
 				7BFC5A531B67DB7500C3AD7F /* main.m in Sources */,
+				7BFC5A8E1B68E18C00C3AD7F /* AIDayViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,6 +502,7 @@
 				7BFC5A721B67DB7500C3AD7F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7BFC5A731B67DB7500C3AD7F /* Build configuration list for PBXNativeTarget "15 weeks workoutTests" */ = {
 			isa = XCConfigurationList;
@@ -448,6 +511,7 @@
 				7BFC5A751B67DB7500C3AD7F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
