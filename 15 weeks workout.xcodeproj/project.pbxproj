@@ -26,6 +26,7 @@
 		7BFC5A8E1B68E18C00C3AD7F /* AIDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BFC5A8D1B68E18C00C3AD7F /* AIDayViewController.m */; };
 		7BFC5A911B68E1B200C3AD7F /* AIExercisesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BFC5A901B68E1B200C3AD7F /* AIExercisesViewController.m */; };
 		7BFC5A941B68E1CF00C3AD7F /* AIExerciseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BFC5A931B68E1CF00C3AD7F /* AIExerciseCell.m */; };
+		7BFC5A9B1B68FBE000C3AD7F /* AIUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BFC5A9A1B68FBE000C3AD7F /* AIUser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,8 @@
 		7BFC5A901B68E1B200C3AD7F /* AIExercisesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIExercisesViewController.m; sourceTree = "<group>"; };
 		7BFC5A921B68E1CF00C3AD7F /* AIExerciseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIExerciseCell.h; sourceTree = "<group>"; };
 		7BFC5A931B68E1CF00C3AD7F /* AIExerciseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIExerciseCell.m; sourceTree = "<group>"; };
+		7BFC5A991B68FBE000C3AD7F /* AIUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIUser.h; sourceTree = "<group>"; };
+		7BFC5A9A1B68FBE000C3AD7F /* AIUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIUser.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +114,8 @@
 				7BFC5A541B67DB7500C3AD7F /* AppDelegate.h */,
 				7BFC5A551B67DB7500C3AD7F /* AppDelegate.m */,
 				7BFC5A5A1B67DB7500C3AD7F /* Main.storyboard */,
+				7BFC5A991B68FBE000C3AD7F /* AIUser.h */,
+				7BFC5A9A1B68FBE000C3AD7F /* AIUser.m */,
 				7BFC5A951B68E1D800C3AD7F /* Views */,
 				7BFC5A961B68E1E100C3AD7F /* Cells */,
 				7BFC5A5D1B67DB7500C3AD7F /* Images.xcassets */,
@@ -306,6 +311,7 @@
 				7BFC5A911B68E1B200C3AD7F /* AIExercisesViewController.m in Sources */,
 				7BFC5A561B67DB7500C3AD7F /* AppDelegate.m in Sources */,
 				7BFC5A941B68E1CF00C3AD7F /* AIExerciseCell.m in Sources */,
+				7BFC5A9B1B68FBE000C3AD7F /* AIUser.m in Sources */,
 				7BFC5A531B67DB7500C3AD7F /* main.m in Sources */,
 				7BFC5A8E1B68E18C00C3AD7F /* AIDayViewController.m in Sources */,
 			);
