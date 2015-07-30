@@ -80,7 +80,9 @@
     
     AIExercisesViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"AIExercisesViewController"];
     
-    vc.allExercisesArray = @[self.pushUpsArray, self.pullUpsArray, self.dipsArray];
+    vc.pushUpsArray = self.pushUpsArray;
+    vc.pullUpsArray = self.pullUpsArray;
+    vc.dipsArray    = self.dipsArray;
     
     vc.numberOfPushUps = [NSNumber numberWithInteger:[self.pushUpsLabel.text integerValue]];
     vc.numberOfPullUps = [NSNumber numberWithInteger:[self.pullUpsLabel.text integerValue]];
@@ -118,7 +120,6 @@
                          @22,@14,@12,@12,@12,    @24,@14,@13,@13,@12,    @25,@15,@14,@13,@13 ];
     });
     return pullUpsArray;
-
 }
 
 + (NSArray*) dips {
@@ -133,7 +134,6 @@
                  @55,@50,@40,@40,@35,    @60,@55,@40,@40,@35,    @60,@60,@45,@45,@40];
     });
     return dips;
-    
 }
 
 

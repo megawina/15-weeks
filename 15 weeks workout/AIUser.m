@@ -15,10 +15,7 @@
     AIUser* user = [[AIUser alloc] init];
     
     user.trainingDay = 1;
-    
     [[NSUserDefaults standardUserDefaults] setInteger:user.trainingDay forKey:@"trainingDay"];
-    
-    NSLog(@"def - %ld", (long)[[NSUserDefaults standardUserDefaults] integerForKey:@"trainingDay"]);
     
     return user;
     

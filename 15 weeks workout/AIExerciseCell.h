@@ -23,6 +23,7 @@ typedef enum {
 
 @property (weak, nonatomic) IBOutlet UILabel *exerciseLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
+@property (weak, nonatomic) IBOutlet UILabel *doneLabel;
 
 @property (strong, nonatomic) NSArray* buttonsArray;
 

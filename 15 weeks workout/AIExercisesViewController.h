@@ -10,7 +10,9 @@
 
 @interface AIExercisesViewController : UITableViewController
 
-@property (strong, nonatomic) NSArray* allExercisesArray;   // all exercises, which contains 3 arrays: push-ups, pull-us, dips
+@property (strong, nonatomic) NSArray* pushUpsArray;
+@property (strong, nonatomic) NSArray* pullUpsArray;
+@property (strong, nonatomic) NSArray* dipsArray;
 
 @property (assign, nonatomic) NSNumber* numberOfPushUps;
 @property (assign, nonatomic) NSNumber* numberOfPullUps;

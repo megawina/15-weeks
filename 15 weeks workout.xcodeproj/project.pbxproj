@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7BE191471B6A6DDB00E636D8 /* AITimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE191461B6A6DDB00E636D8 /* AITimerView.m */; };
 		7BFC5A531B67DB7500C3AD7F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BFC5A521B67DB7500C3AD7F /* main.m */; };
 		7BFC5A561B67DB7500C3AD7F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BFC5A551B67DB7500C3AD7F /* AppDelegate.m */; };
 		7BFC5A591B67DB7500C3AD7F /* AIMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BFC5A581B67DB7500C3AD7F /* AIMainViewController.m */; };
@@ -40,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7BE191451B6A6DDB00E636D8 /* AITimerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AITimerView.h; sourceTree = "<group>"; };
+		7BE191461B6A6DDB00E636D8 /* AITimerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AITimerView.m; sourceTree = "<group>"; };
 		7BFC5A4D1B67DB7500C3AD7F /* 15 weeks workout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "15 weeks workout.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BFC5A511B67DB7500C3AD7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7BFC5A521B67DB7500C3AD7F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -185,6 +188,8 @@
 				7BFC5A8D1B68E18C00C3AD7F /* AIDayViewController.m */,
 				7BFC5A8F1B68E1B200C3AD7F /* AIExercisesViewController.h */,
 				7BFC5A901B68E1B200C3AD7F /* AIExercisesViewController.m */,
+				7BE191451B6A6DDB00E636D8 /* AITimerView.h */,
+				7BE191461B6A6DDB00E636D8 /* AITimerView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -313,6 +318,7 @@
 				7BFC5A941B68E1CF00C3AD7F /* AIExerciseCell.m in Sources */,
 				7BFC5A9B1B68FBE000C3AD7F /* AIUser.m in Sources */,
 				7BFC5A531B67DB7500C3AD7F /* main.m in Sources */,
+				7BE191471B6A6DDB00E636D8 /* AITimerView.m in Sources */,
 				7BFC5A8E1B68E18C00C3AD7F /* AIDayViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

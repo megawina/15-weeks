@@ -8,10 +8,11 @@
 
 #import "AIExercisesViewController.h"
 #import "AIExerciseCell.h"
+#import "AITimerView.h"
 
 #import "AIUser.h"
 
-#define CELL_HEIGHT  120
+#define CELL_HEIGHT  140
 
 static NSString* exNames[] = {@"PUSH-UPS", @"PULL-UPS", @"DIPS"};
 
@@ -19,6 +20,7 @@ static NSString* exNames[] = {@"PUSH-UPS", @"PULL-UPS", @"DIPS"};
 @interface AIExercisesViewController () <AIExerciseCellDelegate>
 
 @property (strong, nonatomic) NSArray* totalNumber;
+@property (strong, nonatomic) NSMutableArray* allExercisesArray;
 
 @end
 
@@ -26,6 +28,9 @@ static NSString* exNames[] = {@"PUSH-UPS", @"PULL-UPS", @"DIPS"};
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationItem.title = @"Exercises";
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     if (![[NSUserDefaults standardUserDefaults] integerForKey:@"timesLaunched"]) {
         [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"timesLaunched"];
@@ -35,6 +40,9 @@ static NSString* exNames[] = {@"PUSH-UPS", @"PULL-UPS", @"DIPS"};
     } else {
         NSLog(@"created");
     }
+    
+    self.allExercisesArray = [NSMutableArray array];
+    [self.allExercisesArray addObject:self.pushUpsArray];
     
     self.totalNumber = @[self.numberOfPushUps, self.numberOfPullUps, self.numberOfDips];
     
@@ -49,7 +57,7 @@ static NSString* exNames[] = {@"PUSH-UPS", @"PULL-UPS", @"DIPS"};
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return [self.allExercisesArray count];
 }
 
 
@@ -97,12 +105,18 @@ static NSString* exNames[] = {@"PUSH-UPS", @"PULL-UPS", @"DIPS"};
     
     NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell *)[[button superview] superview]];
     NSUInteger row = indexPath.row;
-    
+        
     [self makeAnimationForButton:button inRow:row];
     
+    if (button.tag != 4) {
+        [self showTimerView];
+    } else {
+        [self addNextCellWithRow:row + 1];
+    }
+
 }
 
-#pragma mark - Button Animations
+#pragma mark - Animations
 
 - (void) makeAnimationForButton:(UIButton*) button inRow: (NSInteger) row {
     
@@ -153,6 +167,33 @@ static NSString* exNames[] = {@"PUSH-UPS", @"PULL-UPS", @"DIPS"};
     
     [circle addAnimation:pathAnimation forKey:@"changePathAnimation"];
     
+    [button setTitleColor:[UIColor colorWithRed:56/255.f green:63/255.f blue:74/255.f alpha:1] forState:UIControlStateNormal];
+    
+}
+
+- (void) addNextCellWithRow:(NSInteger) row {
+    
+    if (row < 3) {
+        
+        row == 1 ? [self.allExercisesArray addObject:self.pullUpsArray] : [self.allExercisesArray addObject:self.dipsArray];
+        
+        NSIndexPath* indexPath = [NSIndexPath indexPathForRow:row inSection:0];
+        
+        [self.tableView beginUpdates];
+        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+        [self.tableView endUpdates];
+    }
+    
+}
+
+#pragma mark - Timer
+
+- (void) showTimerView {
+    
+    AITimerView* timerView = [[AITimerView alloc] init];
+        
+    [self.view addSubview:timerView];
+        
 }
 
 
