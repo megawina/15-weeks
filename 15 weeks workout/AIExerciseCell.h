@@ -15,19 +15,27 @@ typedef enum {
     
 } AICellState;
 
+@protocol AIExerciseCellDelegate;
+
 @interface AIExerciseCell : UITableViewCell
 
-@property (assign, nonatomic) BOOL state;
-@property (weak, nonatomic) IBOutlet UIView *stateView;
-
+@property (weak, nonatomic) id <AIExerciseCellDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet UILabel *exerciseLabel;
 @property (weak, nonatomic) IBOutlet UILabel *totalLabel;
+
+@property (strong, nonatomic) NSArray* buttonsArray;
 
 @property (weak, nonatomic) IBOutlet UIButton *firstStepButton;
 @property (weak, nonatomic) IBOutlet UIButton *secondStepButton;
 @property (weak, nonatomic) IBOutlet UIButton *thirdStepButton;
 @property (weak, nonatomic) IBOutlet UIButton *fourthStepButton;
 @property (weak, nonatomic) IBOutlet UIButton *fifthStepButton;
+
+@end
+
+@protocol AIExerciseCellDelegate <NSObject>
+
+- (void) setExerciseDone:(UIButton*) button;
 
 @end

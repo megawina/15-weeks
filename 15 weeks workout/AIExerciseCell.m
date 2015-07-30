@@ -12,12 +12,19 @@
 @implementation AIExerciseCell
 
 - (void)awakeFromNib {
-    NSLog(@"awakeFromNib");
+    
+    self.buttonsArray = @[self.firstStepButton, self.secondStepButton,
+                          self.thirdStepButton, self.fourthStepButton,
+                          self.fifthStepButton];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 }
 
+- (IBAction)setExerciseDone:(UIButton*)button {
+    [self.delegate setExerciseDone:button];
+}
 
 @end

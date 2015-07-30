@@ -10,10 +10,17 @@
 
 @implementation AIUser
 
-- (void) saveUser:(AIUser*) user {
++ (AIUser*) create {
+    
+    AIUser* user = [[AIUser alloc] init];
+    
+    user.trainingDay = 1;
     
     [[NSUserDefaults standardUserDefaults] setInteger:user.trainingDay forKey:@"trainingDay"];
-    [[NSUserDefaults standardUserDefaults] setValue:user.lastTrainingDate forKey:@"lastTrainingDate"];
+    
+    NSLog(@"def - %ld", (long)[[NSUserDefaults standardUserDefaults] integerForKey:@"trainingDay"]);
+    
+    return user;
     
 }
 
@@ -21,11 +28,16 @@
     
     AIUser* user = [[AIUser alloc] init];
     
-    user.trainingDay = [[NSUserDefaults standardUserDefaults] integerForKey:@"trainingDay"];
-    user.lastTrainingDate = [[NSUserDefaults standardUserDefaults] valueForKey:@"lastTrainingDate"];
+    user.trainingDay = [[NSUserDefaults standardUserDefaults] integerForKey:@"trainingDay"]; // we have to change training day after uses click OK after done exercises
     
     return user;
     
 }
+
+- (void) saveUser:(AIUser*) user {
+    [[NSUserDefaults standardUserDefaults] setInteger:user.trainingDay + 1 forKey:@"trainingDay"];
+    [[NSUserDefaults standardUserDefaults] setValue:[NSDate date] forKey:@"lastTrainingDate"];
+}
+
 
 @end

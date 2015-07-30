@@ -10,4 +10,10 @@
 
 @interface AIDayViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *dayLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *pushUpsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *pullUpsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dipsLabel;
+
 @end
