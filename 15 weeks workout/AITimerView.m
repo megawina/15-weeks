@@ -32,7 +32,13 @@
             
             UIView* backgroundView = [[UIView alloc] initWithFrame:self.frame];
             backgroundView.backgroundColor = [UIColor blackColor];
-            backgroundView.alpha = 0.8f;
+            backgroundView.alpha = 0.0f;
+            
+            [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+                 backgroundView.alpha = 0.8f;
+            } completion:^(BOOL finished) {
+            }];
+            
             [self addSubview:backgroundView];
             
             // animation for circle
@@ -93,7 +99,7 @@
     
     if (!self.seconds) {
        // self.seconds = 60;
-        self.seconds = 4;
+        self.seconds = 2;
     }
     
     if (self.seconds != 0) {

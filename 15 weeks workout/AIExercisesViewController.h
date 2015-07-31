@@ -18,4 +18,6 @@
 @property (assign, nonatomic) NSNumber* numberOfPullUps;
 @property (assign, nonatomic) NSNumber* numberOfDips;
 
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
 @end

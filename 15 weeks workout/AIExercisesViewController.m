@@ -8,9 +8,14 @@
 
 #import "AIExercisesViewController.h"
 #import "AIExerciseCell.h"
+
 #import "AITimerView.h"
+#import "AIDoneView.h"
+
+#import "AIDataManager.h"
 
 #import "AIUser.h"
+#import "AIProgress.h"
 
 #define CELL_HEIGHT  140
 
@@ -21,37 +26,80 @@ static NSString* exNames[] = {@"PUSH-UPS", @"PULL-UPS", @"DIPS"};
 
 @property (strong, nonatomic) NSArray* totalNumber;
 @property (strong, nonatomic) NSMutableArray* allExercisesArray;
+@property (assign, nonatomic) BOOL allExercisesDone;
 
 @end
 
 @implementation AIExercisesViewController
 
+@synthesize managedObjectContext = _managedObjectContext;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //****************************  Core Data   *******************************************
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity  = [NSEntityDescription entityForName:@"AIProgress"
+                                               inManagedObjectContext:self.managedObjectContext];
+    
+    [fetchRequest setEntity:entity];
+    
+    NSError *error = nil;
+    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    if (fetchedObjects != nil) {
+
+        for (id object in fetchedObjects) {
+            
+            AIProgress* progress = (AIProgress*)object;
+            
+            NSLog(@"%@ %@", progress.trainingDay, progress.trainingDate);
+            
+        }
+        
+    }
+    
+    //*************************************************************************************
     
     self.navigationItem.title = @"Exercises";
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
+    UIBarButtonItem* saveItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveProgress:)];
+    self.navigationItem.rightBarButtonItem = saveItem;
+    
     if (![[NSUserDefaults standardUserDefaults] integerForKey:@"timesLaunched"]) {
         [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"timesLaunched"];
         
-        NSLog(@"have to create");
-        
-    } else {
-        NSLog(@"created");
     }
     
     self.allExercisesArray = [NSMutableArray array];
     [self.allExercisesArray addObject:self.pushUpsArray];
     
     self.totalNumber = @[self.numberOfPushUps, self.numberOfPullUps, self.numberOfDips];
-    
-    
+
 }
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO];
+}
+
+#pragma mark - Actions
+
+- (void) saveProgress: (UIBarButtonItem*) item {
+    
+    if (!self.allExercisesDone) {
+        [[[UIAlertView alloc] initWithTitle:@"Warning" message:@"You can`t save today`s progress without all exercises have been done!" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil] show];
+    } else {
+        NSLog(@"can save");
+        
+        // have to save new rogress here
+        
+        [self saveNewProgressInCoreData];
+        
+    }
+    
 }
 
 #pragma mark - UITableViewDataSource
@@ -104,13 +152,22 @@ static NSString* exNames[] = {@"PUSH-UPS", @"PULL-UPS", @"DIPS"};
 - (void) setExerciseDone:(UIButton *)button {
     
     NSIndexPath *indexPath = [self.tableView indexPathForCell:(UITableViewCell *)[[button superview] superview]];
+    
     NSUInteger row = indexPath.row;
         
     [self makeAnimationForButton:button inRow:row];
     
     if (button.tag != 4) {
-        [self showTimerView];
+       // [self showTimerView];
     } else {
+        
+        if (row == 2) {
+            self.allExercisesDone = YES;
+        }
+        
+        AIDoneView* doneView = [[AIDoneView alloc] initWithRow:row];        // to show view with title 'successful done' after exercises
+        [self.view addSubview:doneView];
+        
         [self addNextCellWithRow:row + 1];
     }
 
@@ -191,10 +248,40 @@ static NSString* exNames[] = {@"PUSH-UPS", @"PULL-UPS", @"DIPS"};
 - (void) showTimerView {
     
     AITimerView* timerView = [[AITimerView alloc] init];
-        
     [self.view addSubview:timerView];
         
 }
+
+#pragma mark - Core Data
+
+- (void) saveNewProgressInCoreData {
+    
+    NSDictionary* dictionary = @{ @"numberOfPushUps" : self.numberOfPushUps,
+                                  @"numberOfPullUps" : self.numberOfPullUps,
+                                  @"numberOfDips"    : self.numberOfDips};
+    
+    
+    [[AIDataManager sharedManager] saveNewProgressWithDictionary:dictionary onSuccess:^(BOOL saved) {
+        
+        if (saved) {
+            NSInteger currentTrainingDay = [[NSUserDefaults standardUserDefaults] integerForKey:@"trainingDay"];
+            currentTrainingDay++;
+            [[NSUserDefaults standardUserDefaults] setInteger:currentTrainingDay forKey:@"trainingDay"];
+        }
+        
+    }];
+    
+}
+
+- (NSManagedObjectContext*) managedObjectContext {
+    
+    if (!_managedObjectContext) {
+        _managedObjectContext = [[AIDataManager sharedManager] managedObjectContext];
+    }
+    return _managedObjectContext;
+    
+}
+
 
 
 @end

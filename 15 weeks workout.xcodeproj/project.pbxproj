@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		7BE191471B6A6DDB00E636D8 /* AITimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE191461B6A6DDB00E636D8 /* AITimerView.m */; };
+		7BE1914B1B6B69A700E636D8 /* AIDoneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE1914A1B6B69A700E636D8 /* AIDoneView.m */; };
+		7BE1914E1B6B835D00E636D8 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7BE1914C1B6B835D00E636D8 /* Model.xcdatamodeld */; };
+		7BE191511B6B84CD00E636D8 /* AIDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE191501B6B84CD00E636D8 /* AIDataManager.m */; };
+		7BE191551B6B869000E636D8 /* AIProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BE191541B6B869000E636D8 /* AIProgress.m */; };
 		7BFC5A531B67DB7500C3AD7F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BFC5A521B67DB7500C3AD7F /* main.m */; };
 		7BFC5A561B67DB7500C3AD7F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BFC5A551B67DB7500C3AD7F /* AppDelegate.m */; };
 		7BFC5A591B67DB7500C3AD7F /* AIMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BFC5A581B67DB7500C3AD7F /* AIMainViewController.m */; };
@@ -43,6 +47,13 @@
 /* Begin PBXFileReference section */
 		7BE191451B6A6DDB00E636D8 /* AITimerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AITimerView.h; sourceTree = "<group>"; };
 		7BE191461B6A6DDB00E636D8 /* AITimerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AITimerView.m; sourceTree = "<group>"; };
+		7BE191491B6B69A700E636D8 /* AIDoneView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIDoneView.h; sourceTree = "<group>"; };
+		7BE1914A1B6B69A700E636D8 /* AIDoneView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIDoneView.m; sourceTree = "<group>"; };
+		7BE1914D1B6B835D00E636D8 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		7BE1914F1B6B84CD00E636D8 /* AIDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIDataManager.h; sourceTree = "<group>"; };
+		7BE191501B6B84CD00E636D8 /* AIDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIDataManager.m; sourceTree = "<group>"; };
+		7BE191531B6B869000E636D8 /* AIProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIProgress.h; sourceTree = "<group>"; };
+		7BE191541B6B869000E636D8 /* AIProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIProgress.m; sourceTree = "<group>"; };
 		7BFC5A4D1B67DB7500C3AD7F /* 15 weeks workout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "15 weeks workout.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BFC5A511B67DB7500C3AD7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7BFC5A521B67DB7500C3AD7F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -93,6 +104,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7BE191481B6B697900E636D8 /* Support Views */ = {
+			isa = PBXGroup;
+			children = (
+				7BE191451B6A6DDB00E636D8 /* AITimerView.h */,
+				7BE191461B6A6DDB00E636D8 /* AITimerView.m */,
+				7BE191491B6B69A700E636D8 /* AIDoneView.h */,
+				7BE1914A1B6B69A700E636D8 /* AIDoneView.m */,
+			);
+			name = "Support Views";
+			sourceTree = "<group>";
+		};
+		7BE191521B6B84D500E636D8 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				7BE191531B6B869000E636D8 /* AIProgress.h */,
+				7BE191541B6B869000E636D8 /* AIProgress.m */,
+				7BE1914F1B6B84CD00E636D8 /* AIDataManager.h */,
+				7BE191501B6B84CD00E636D8 /* AIDataManager.m */,
+				7BE1914C1B6B835D00E636D8 /* Model.xcdatamodeld */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
 		7BFC5A441B67DB7500C3AD7F = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +153,7 @@
 				7BFC5A5A1B67DB7500C3AD7F /* Main.storyboard */,
 				7BFC5A991B68FBE000C3AD7F /* AIUser.h */,
 				7BFC5A9A1B68FBE000C3AD7F /* AIUser.m */,
+				7BE191521B6B84D500E636D8 /* Data */,
 				7BFC5A951B68E1D800C3AD7F /* Views */,
 				7BFC5A961B68E1E100C3AD7F /* Cells */,
 				7BFC5A5D1B67DB7500C3AD7F /* Images.xcassets */,
@@ -188,8 +223,7 @@
 				7BFC5A8D1B68E18C00C3AD7F /* AIDayViewController.m */,
 				7BFC5A8F1B68E1B200C3AD7F /* AIExercisesViewController.h */,
 				7BFC5A901B68E1B200C3AD7F /* AIExercisesViewController.m */,
-				7BE191451B6A6DDB00E636D8 /* AITimerView.h */,
-				7BE191461B6A6DDB00E636D8 /* AITimerView.m */,
+				7BE191481B6B697900E636D8 /* Support Views */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -314,10 +348,14 @@
 			files = (
 				7BFC5A591B67DB7500C3AD7F /* AIMainViewController.m in Sources */,
 				7BFC5A911B68E1B200C3AD7F /* AIExercisesViewController.m in Sources */,
+				7BE191551B6B869000E636D8 /* AIProgress.m in Sources */,
 				7BFC5A561B67DB7500C3AD7F /* AppDelegate.m in Sources */,
+				7BE191511B6B84CD00E636D8 /* AIDataManager.m in Sources */,
 				7BFC5A941B68E1CF00C3AD7F /* AIExerciseCell.m in Sources */,
+				7BE1914B1B6B69A700E636D8 /* AIDoneView.m in Sources */,
 				7BFC5A9B1B68FBE000C3AD7F /* AIUser.m in Sources */,
 				7BFC5A531B67DB7500C3AD7F /* main.m in Sources */,
+				7BE1914E1B6B835D00E636D8 /* Model.xcdatamodeld in Sources */,
 				7BE191471B6A6DDB00E636D8 /* AITimerView.m in Sources */,
 				7BFC5A8E1B68E18C00C3AD7F /* AIDayViewController.m in Sources */,
 			);
@@ -526,6 +564,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7BE1914C1B6B835D00E636D8 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7BE1914D1B6B835D00E636D8 /* Model.xcdatamodel */,
+			);
+			currentVersion = 7BE1914D1B6B835D00E636D8 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 7BFC5A451B67DB7500C3AD7F /* Project object */;
 }
