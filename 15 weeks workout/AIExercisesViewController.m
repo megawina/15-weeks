@@ -158,7 +158,7 @@ static NSString* exNames[] = {@"PUSH-UPS", @"PULL-UPS", @"DIPS"};
     [self makeAnimationForButton:button inRow:row];
     
     if (button.tag != 4) {
-       // [self showTimerView];
+      // [self showTimerView];
     } else {
         
         if (row == 2) {
@@ -267,6 +267,7 @@ static NSString* exNames[] = {@"PUSH-UPS", @"PULL-UPS", @"DIPS"};
             NSInteger currentTrainingDay = [[NSUserDefaults standardUserDefaults] integerForKey:@"trainingDay"];
             currentTrainingDay++;
             [[NSUserDefaults standardUserDefaults] setInteger:currentTrainingDay forKey:@"trainingDay"];
+            [[NSUserDefaults standardUserDefaults] setValue:@"saved" forKey:@"saved"];
         }
         
     }];

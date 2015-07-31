@@ -10,33 +10,68 @@
 #import "AIExercisesViewController.h"
 
 #import "AIUser.h"
+#import "AIProgress.h"
+
+#import "AIDataManager.h"
+
+static NSInteger minInterval = 20 * 60 * 60;
+static NSInteger maxInterval = 28 * 60 * 60;
 
 @interface AIDayViewController ()
 
 @property (strong,nonatomic) AIUser* user;
 
 @property (weak, nonatomic) IBOutlet UIButton* goButton;
+@property (weak, nonatomic) IBOutlet UILabel *nextTrainingTimeLabel;
+
 
 @property (strong, nonatomic) NSArray* pushUpsArray;
 @property (strong, nonatomic) NSArray* pullUpsArray;
 @property (strong, nonatomic) NSArray* dipsArray;
 
 @property (assign, nonatomic) NSInteger trainingDay;
+@property (assign, nonatomic) NSInteger curInterval;
+
+@property (strong, nonatomic) NSTimer* timer;
+@property (strong, nonatomic) NSDate*  lastTrainingDate;
 
 @end
 
 @implementation AIDayViewController
 
+@synthesize managedObjectContext = _managedObjectContext;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"timesLaunched"]) {
-        [self createProgramForCurrentDay];
-    } else {
-        [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"trainingDay"];
-        [self createProgramForCurrentDay];
-    }
+    self.nextTrainingTimeLabel.text = [NSString stringWithFormat:@"00:00:00"];
+    
+}
 
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self.navigationController setNavigationBarHidden:YES];
+    
+    if (![[NSUserDefaults standardUserDefaults] integerForKey:@"timesLaunched"]) {
+        [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"trainingDay"];
+    } else {
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                      target:self
+                                                    selector:@selector(actionUpdateTime)
+                                                    userInfo:nil
+                                                     repeats:YES];
+    }
+    
+    [self createProgramForCurrentDay];
+    
+    // check if user get trainings today, then don`t allow him to enter in the next view controller and show alert
+    //     and if user don`t train more than 1 day - give him a chance to buy ability to continue trainings, else - clear all data
+    
+    [self checkDatesUserTrain];
+    
+    // timer
+    
 }
 
 - (void) createProgramForCurrentDay {
@@ -49,16 +84,11 @@
     self.pullUpsArray = [[[self class] pullUps] subarrayWithRange:NSMakeRange(locationInRange, 5)];
     self.dipsArray    = [[[self class] dips]    subarrayWithRange:NSMakeRange(locationInRange, 5)];
     
-    self.dayLabel.text     = [NSString stringWithFormat:@"DAY %ld",  self.trainingDay];
-    self.pushUpsLabel.text = [NSString stringWithFormat:@"%ld", [self countArray:self.pushUpsArray]];
-    self.pullUpsLabel.text = [NSString stringWithFormat:@"%ld", [self countArray:self.pullUpsArray]];
-    self.dipsLabel.text    = [NSString stringWithFormat:@"%ld", [self countArray:self.dipsArray]];
+    self.dayLabel.text  = [NSString stringWithFormat:@"DAY %ld",  self.trainingDay];
+    self.pushLabel.text = [NSString stringWithFormat:@"%ld", [self countArray:self.pushUpsArray]];
+    self.pullLabel.text = [NSString stringWithFormat:@"%ld", [self countArray:self.pullUpsArray]];
+    self.dipsLabel.text = [NSString stringWithFormat:@"%ld", [self countArray:self.dipsArray]];
     
-}
-
-- (void) viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (NSInteger) countArray: (NSArray*) array {
@@ -77,17 +107,50 @@
 
 - (IBAction)goNext:(UIButton*)sender {
     
-    AIExercisesViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"AIExercisesViewController"];
+    NSString* savedString = [[NSUserDefaults standardUserDefaults] valueForKey:@"saved"];
     
-    vc.pushUpsArray = self.pushUpsArray;
-    vc.pullUpsArray = self.pullUpsArray;
-    vc.dipsArray    = self.dipsArray;
+    if (self.curInterval < minInterval && [savedString isEqualToString: @"saved"]) {
+        
+        [[[UIAlertView alloc] initWithTitle:@"Stop" message:@"You haven`t do more exercises. Please, do it only at time, that you start at the beginning of trainings +- 4 hours " delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
+        
+    } else if (self.curInterval > maxInterval) {
+        
+        NSLog(@"have to buy");
+        
+    } else {
+        
+        AIExercisesViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"AIExercisesViewController"];
+        
+        vc.pushUpsArray = self.pushUpsArray;
+        vc.pullUpsArray = self.pullUpsArray;
+        vc.dipsArray    = self.dipsArray;
+        
+        vc.numberOfPushUps = [NSNumber numberWithInteger:[self.pushLabel.text integerValue]];
+        vc.numberOfPullUps = [NSNumber numberWithInteger:[self.pullLabel.text integerValue]];
+        vc.numberOfDips    = [NSNumber numberWithInteger:[self.dipsLabel.text integerValue]];
+        
+        [self.navigationController pushViewController:vc animated:YES];
+
+    }
     
-    vc.numberOfPushUps = [NSNumber numberWithInteger:[self.pushUpsLabel.text integerValue]];
-    vc.numberOfPullUps = [NSNumber numberWithInteger:[self.pullUpsLabel.text integerValue]];
-    vc.numberOfDips    = [NSNumber numberWithInteger:[self.dipsLabel.text integerValue]];
+}
+
+-(void) actionUpdateTime {
     
-    [self.navigationController pushViewController:vc animated:YES];
+    NSDate* tomorrowTrainingDate = [NSDate dateWithTimeInterval:24 * 60 * 60 sinceDate:self.lastTrainingDate];
+    
+    NSTimeInterval intervalSinceNowForTommorow = [tomorrowTrainingDate timeIntervalSinceDate:[NSDate date]];
+    
+    NSInteger hours   = intervalSinceNowForTommorow / 60 / 60;
+    NSInteger minutes = (intervalSinceNowForTommorow - hours * 60 * 60) / 60;
+    NSInteger seconds = intervalSinceNowForTommorow - hours * 60 * 60 - minutes * 60;
+    
+    self.nextTrainingTimeLabel.text = [NSString stringWithFormat:@"%ld:%ld:%ld",  hours, minutes,seconds];
+    
+    if (intervalSinceNowForTommorow < 1) {
+        [self.timer invalidate];
+        self.timer = nil;
+    }
     
 }
 
@@ -133,6 +196,38 @@
                         @55,@50,@40,@40,@35,    @60,@55,@40,@40,@35,    @60,@60,@45,@45,@40];
     });
     return dips;
+}
+
+#pragma mark - Core Data
+
+- (NSManagedObjectContext*) managedObjectContext {
+    
+    if (!_managedObjectContext) {
+        _managedObjectContext = [[AIDataManager sharedManager] managedObjectContext];
+    }
+    return _managedObjectContext;
+    
+}
+
+- (void) checkDatesUserTrain {
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"AIProgress" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    NSError *error = nil;
+    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (fetchedObjects != nil) {
+        
+        AIProgress* lastProgress = [fetchedObjects lastObject];
+        
+        self.lastTrainingDate  = lastProgress.trainingDate;
+        NSDate* today = [NSDate date];
+        
+        self.curInterval = [today timeIntervalSinceDate:self.lastTrainingDate];
+        
+    }
+    
 }
 
 

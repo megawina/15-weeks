@@ -12,8 +12,10 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *dayLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *pushUpsLabel;
-@property (weak, nonatomic) IBOutlet UILabel *pullUpsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *pushLabel;
+@property (weak, nonatomic) IBOutlet UILabel *pullLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dipsLabel;
+
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @end
