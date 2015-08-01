@@ -7,11 +7,12 @@
 //
 
 #import "AIMainViewController.h"
+#import "AICodecsViewController.h"
+#import "AIDayViewController.h"
 
-@interface AIMainViewController ()
+@interface AIMainViewController () <AICodecsViewControllerDelegate>
 
-@property (weak, nonatomic) IBOutlet UIImageView *tapImageView;
-
+@property (strong, nonatomic) AICodecsViewController* codecsViewController;
 
 @end
 
@@ -19,47 +20,52 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self makeTapAnimation];
-    
+        
 }
 
-#pragma mark - Animations
-
-- (void) makeTapAnimation {
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
-    [UIView
-     animateWithDuration:0.6f
-     delay:0
-     options:UIViewAnimationOptionAutoreverse | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionRepeat
-     animations:^{
-         self.tapImageView.alpha = 1.0f;
-     }
-     completion:^(BOOL finished) {
-         nil;
-     }];
-
+    [self.navigationController setNavigationBarHidden:YES];
 }
+
+- (void)dealloc {
+    self.codecsViewController.delegate = nil;
+}
+
 
 #pragma mark - Actions
 
 - (IBAction)actionGo:(UIButton *)sender {
     
-    
+    if (![[NSUserDefaults standardUserDefaults] integerForKey:@"timesLaunched"]) {                  // integer for this key could be created in AIExerciseCiewController
+        
+        self.codecsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AICodecsViewController"];
+        self.codecsViewController.delegate = self;
+        [self.navigationController presentViewController:self.codecsViewController animated:YES completion:nil];
+        
+    } else {
+        
+        [self goToDayViewController];
+        
+    }
     
 }
 
 - (IBAction)actionHowToUse:(UIButton *)sender {
     
-    
+    // page view - how to use app
     
 }
 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+#pragma mark - AICodecsViewControllerDelegate
 
+- (void) goToDayViewController {
+    
+    AIDayViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"AIDayViewController"];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
 
 @end

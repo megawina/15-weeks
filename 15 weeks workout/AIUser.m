@@ -25,7 +25,8 @@
     
     AIUser* user = [[AIUser alloc] init];
     
-    user.trainingDay = [[NSUserDefaults standardUserDefaults] integerForKey:@"trainingDay"]; // we have to change training day after uses click OK after done exercises
+    // we have to change training day after uses click OK after done exercises
+    user.trainingDay = [[NSUserDefaults standardUserDefaults] integerForKey:@"trainingDay"];
     
     return user;
     

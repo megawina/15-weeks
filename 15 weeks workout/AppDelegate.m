@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "AIUtils.h"
 
 @interface AppDelegate ()
 
@@ -18,12 +19,16 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:253/255.f green:190/255.f blue:65/255.f alpha:1]];
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:56/255.f green:63/255.f blue:74/255.f alpha:1]];
     
-    NSDictionary* textAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:253/255.f green:190/255.f blue:65/255.f alpha:1]};
+    // basic configurations of navigation bar
+    
+    NSDictionary* textAttributes = @{NSForegroundColorAttributeName : UICOLOR_DARK_YELLOW};
+    
+    [[UINavigationBar appearance] setTintColor:     UICOLOR_DARK_YELLOW];
+    [[UINavigationBar appearance] setBarTintColor:  UICOLOR_DARK_GRAY];
     
     [[UINavigationBar appearance] setTitleTextAttributes:textAttributes];
+    
     
     return YES;
 }

@@ -14,15 +14,13 @@
 
 #import "AIDataManager.h"
 
+#import "AIUtils.h"
 #import "AIUser.h"
 #import "AIProgress.h"
 
-#define CELL_HEIGHT  140
-
 static NSString* exNames[] = {@"PUSH-UPS", @"PULL-UPS", @"DIPS"};
 
-
-@interface AIExercisesViewController () <AIExerciseCellDelegate>
+@interface AIExercisesViewController () <AIExerciseCellDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) NSArray* totalNumber;
 @property (strong, nonatomic) NSMutableArray* allExercisesArray;
@@ -37,40 +35,19 @@ static NSString* exNames[] = {@"PUSH-UPS", @"PULL-UPS", @"DIPS"};
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //****************************  Core Data   *******************************************
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity  = [NSEntityDescription entityForName:@"AIProgress"
-                                               inManagedObjectContext:self.managedObjectContext];
-    
-    [fetchRequest setEntity:entity];
-    
-    NSError *error = nil;
-    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    
-    if (fetchedObjects != nil) {
-
-        for (id object in fetchedObjects) {
-            
-            AIProgress* progress = (AIProgress*)object;
-            
-            NSLog(@"%@ %@", progress.trainingDay, progress.trainingDate);
-            
-        }
-        
-    }
-    
-    //*************************************************************************************
-    
     self.navigationItem.title = @"Exercises";
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    UIBarButtonItem* saveItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveProgress:)];
+    UIBarButtonItem* saveItem = [[UIBarButtonItem alloc]
+                                 initWithTitle:@"Save"
+                                 style:UIBarButtonItemStylePlain
+                                 target:self
+                                 action:@selector(saveProgress:)];
+    
     self.navigationItem.rightBarButtonItem = saveItem;
     
     if (![[NSUserDefaults standardUserDefaults] integerForKey:@"timesLaunched"]) {
         [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"timesLaunched"];
-        
     }
     
     self.allExercisesArray = [NSMutableArray array];
@@ -90,14 +67,26 @@ static NSString* exNames[] = {@"PUSH-UPS", @"PULL-UPS", @"DIPS"};
 - (void) saveProgress: (UIBarButtonItem*) item {
     
     if (!self.allExercisesDone) {
-        [[[UIAlertView alloc] initWithTitle:@"Warning" message:@"You can`t save today`s progress without all exercises have been done!" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil, nil] show];
-    } else {
-        NSLog(@"can save");
         
-        // have to save new rogress here
+        [[[UIAlertView alloc]
+          initWithTitle:@"Warning"
+          message:@"You can`t save today`s progress without all exercises have been done!"
+          delegate:nil
+          cancelButtonTitle:@"Cancel"
+          otherButtonTitles:nil, nil]
+         show];
+        
+    } else {
         
         [self saveNewProgressInCoreData];
         
+        [[[UIAlertView alloc]
+          initWithTitle:@"Saved"
+          message:@"Your progress have been updated! You can see your new statistics. TIme to next training - 24h"
+          delegate:self
+          cancelButtonTitle:@"OK"
+          otherButtonTitles:nil, nil]
+         show];
     }
     
 }
@@ -108,7 +97,6 @@ static NSString* exNames[] = {@"PUSH-UPS", @"PULL-UPS", @"DIPS"};
     return [self.allExercisesArray count];
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString* identifier = @"cellIdentifier";
@@ -118,6 +106,7 @@ static NSString* exNames[] = {@"PUSH-UPS", @"PULL-UPS", @"DIPS"};
     if (!cell) {
         cell = [[AIExerciseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
+    
     cell.delegate = self;
     
     [self configureCell:cell atIndexPath:indexPath];
@@ -143,9 +132,18 @@ static NSString* exNames[] = {@"PUSH-UPS", @"PULL-UPS", @"DIPS"};
     
 }
 
+#pragma mark - UITbableViewDelegate
+
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 #pragma mark - AIExerciseCellDelegate
 
@@ -158,7 +156,9 @@ static NSString* exNames[] = {@"PUSH-UPS", @"PULL-UPS", @"DIPS"};
     [self makeAnimationForButton:button inRow:row];
     
     if (button.tag != 4) {
-      // [self showTimerView];
+        
+       [self showTimerView];
+        
     } else {
         
         if (row == 2) {
@@ -189,38 +189,40 @@ static NSString* exNames[] = {@"PUSH-UPS", @"PULL-UPS", @"DIPS"};
 
     switch (button.tag) {
         case 0:
-            color = [UIColor colorWithRed:233/255.f green:236/255.f blue:241/255.f alpha:1];
+            color = UICOLOR_LIGHT_GRAY;
             break;
         case 1:
-            color = [UIColor colorWithRed:175/255.f green:208/255.f blue:247/255.f alpha:1];
+            color = UICOLOR_LIGHT_BLUE;
             break;
         case 2:
-            color = [UIColor colorWithRed:74/255.f green:144/255.f blue:226/255.f alpha:1];
+            color = UICOLOR_DARK_BLUE;
             break;
         case 3:
-            color = [UIColor colorWithRed:253/255.f green:190/255.f blue:65/255.f alpha:1];
+            color = UICOLOR_DARK_YELLOW;
             break;
         case 4:
-            color = [UIColor colorWithRed:252/255.f green:98/255.f blue:93/255.f alpha:1];
+            color = UICOLOR_DARK_RED;
             break;
             
         default:
             break;
     }
     
-    circle.fillColor = color.CGColor;
-    circle.strokeColor = color.CGColor;
-    circle.lineWidth = 1;
+    circle.fillColor    = color.CGColor;
+    circle.strokeColor  = color.CGColor;
+    circle.lineWidth    = 1;
         
     [button.layer insertSublayer:circle atIndex:0];
     
     CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-
-    [pathAnimation setFromValue:[NSNumber numberWithFloat:0.0f]];
-    [pathAnimation setToValue:[NSNumber numberWithFloat:1.0f]];
-    [pathAnimation setDuration:0.5f];
-    [pathAnimation setRepeatCount:1.0f];
-    [pathAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+    
+    pathAnimation.fromValue     = @(0.0f);
+    pathAnimation.toValue       = @(1.0f);
+    pathAnimation.duration      = 0.5f;
+    pathAnimation.repeatCount   = 1.0f;
+    
+    CAMediaTimingFunction* timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    pathAnimation.timingFunction = timingFunction;
     
     [circle addAnimation:pathAnimation forKey:@"changePathAnimation"];
     
@@ -247,7 +249,7 @@ static NSString* exNames[] = {@"PUSH-UPS", @"PULL-UPS", @"DIPS"};
 
 - (void) showTimerView {
     
-    AITimerView* timerView = [[AITimerView alloc] init];
+    AITimerView* timerView = [[AITimerView alloc] initAndStart];
     [self.view addSubview:timerView];
         
 }

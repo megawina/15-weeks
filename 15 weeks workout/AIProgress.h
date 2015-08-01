@@ -5,6 +5,11 @@
 //  Created by Anton Ivashyna on 7/31/15.
 //  Copyright (c) 2015 Anton Ivashyna. All rights reserved.
 //
+//**************************************************************************************
+//
+//      This class is entity in core data map.
+//
+//**************************************************************************************
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>

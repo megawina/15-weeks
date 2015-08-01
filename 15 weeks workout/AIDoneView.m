@@ -50,7 +50,7 @@
                                   CGRectMake(0, 0, self.frame.size.width, cellHeight)];
         
         backgroundView.backgroundColor = [UIColor blackColor];
-        backgroundView.alpha= 0.7f;
+        backgroundView.alpha= 0.5f;
         
         [self addSubview:backgroundView];
         
@@ -65,7 +65,7 @@
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0),
                        ^{
-                           [self animateLabelShowText:@"SUCCESSFUL DONE!" characterDelay:0.1];
+                           [self animateLabelShowText:@"SUCCESSFUL DONE!" characterDelay:0.05];
                        });
         
     }

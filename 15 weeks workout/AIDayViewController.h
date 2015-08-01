@@ -5,6 +5,14 @@
 //  Created by Anton Ivashyna on 7/29/15.
 //  Copyright (c) 2015 Anton Ivashyna. All rights reserved.
 //
+//**************************************************************************************
+//
+//      In this View controller user can see his training program for current training.
+//      If he have train today - he could see alert view, that he can`t train more today.
+//      Other way - if he don`t train more then 28 hours, then all data about his progress
+//      could be claered, or, as a variant, he could buy ability to continue trainings.
+//
+//**************************************************************************************
 
 #import <UIKit/UIKit.h>
 

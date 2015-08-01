@@ -4,18 +4,17 @@
 //
 //  Created by Anton Ivashyna on 7/29/15.
 //  Copyright (c) 2015 Anton Ivashyna. All rights reserved.
-//
 
 #import "AIDayViewController.h"
 #import "AIExercisesViewController.h"
+#import "AIStatisticsTableViewController.h"
 
+#import "AIUtils.h"
 #import "AIUser.h"
 #import "AIProgress.h"
 
 #import "AIDataManager.h"
 
-static NSInteger minInterval = 20 * 60 * 60;
-static NSInteger maxInterval = 28 * 60 * 60;
 
 @interface AIDayViewController ()
 
@@ -30,7 +29,7 @@ static NSInteger maxInterval = 28 * 60 * 60;
 @property (strong, nonatomic) NSArray* dipsArray;
 
 @property (assign, nonatomic) NSInteger trainingDay;
-@property (assign, nonatomic) NSInteger curInterval;
+@property (assign, nonatomic) NSInteger intervalFromLastTraining;
 
 @property (strong, nonatomic) NSTimer* timer;
 @property (strong, nonatomic) NSDate*  lastTrainingDate;
@@ -54,23 +53,21 @@ static NSInteger maxInterval = 28 * 60 * 60;
     [self.navigationController setNavigationBarHidden:YES];
     
     if (![[NSUserDefaults standardUserDefaults] integerForKey:@"timesLaunched"]) {
+        
         [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"trainingDay"];
+        
     } else {
+        
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                       target:self
                                                     selector:@selector(actionUpdateTime)
                                                     userInfo:nil
                                                      repeats:YES];
+        
     }
     
     [self createProgramForCurrentDay];
-    
-    // check if user get trainings today, then don`t allow him to enter in the next view controller and show alert
-    //     and if user don`t train more than 1 day - give him a chance to buy ability to continue trainings, else - clear all data
-    
     [self checkDatesUserTrain];
-    
-    // timer
     
 }
 
@@ -80,9 +77,9 @@ static NSInteger maxInterval = 28 * 60 * 60;
         
     NSInteger locationInRange = (self.trainingDay/7) * 5;
     
-    self.pushUpsArray = [[[self class] pushUps] subarrayWithRange:NSMakeRange(locationInRange, 5)];
-    self.pullUpsArray = [[[self class] pullUps] subarrayWithRange:NSMakeRange(locationInRange, 5)];
-    self.dipsArray    = [[[self class] dips]    subarrayWithRange:NSMakeRange(locationInRange, 5)];
+    self.pushUpsArray   = [[[self class] pushUps] subarrayWithRange:NSMakeRange(locationInRange, 5)];
+    self.pullUpsArray   = [[[self class] pullUps] subarrayWithRange:NSMakeRange(locationInRange, 5)];
+    self.dipsArray      = [[[self class] dips]    subarrayWithRange:NSMakeRange(locationInRange, 5)];
     
     self.dayLabel.text  = [NSString stringWithFormat:@"DAY %ld",  self.trainingDay];
     self.pushLabel.text = [NSString stringWithFormat:@"%ld", [self countArray:self.pushUpsArray]];
@@ -109,11 +106,18 @@ static NSInteger maxInterval = 28 * 60 * 60;
     
     NSString* savedString = [[NSUserDefaults standardUserDefaults] valueForKey:@"saved"];
     
-    if (self.curInterval < minInterval && [savedString isEqualToString: @"saved"]) {
+    if (self.intervalFromLastTraining < MIN_INTERVAL_BEETWEN_TRAININGS &&
+        [savedString isEqualToString: @"saved"]) {
         
-        [[[UIAlertView alloc] initWithTitle:@"Stop" message:@"You haven`t do more exercises. Please, do it only at time, that you start at the beginning of trainings +- 4 hours " delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil] show];
+        [[[UIAlertView alloc]
+          initWithTitle:@"Stop"
+          message:@"You haven`t do more exercises. Please, do it only at time, that you start at the beginning of trainings +- 4 hours "
+          delegate:nil
+          cancelButtonTitle:@"Ok"
+          otherButtonTitles:nil, nil]
+         show];
         
-    } else if (self.curInterval > maxInterval) {
+    } else if (self.intervalFromLastTraining > MAX_INTERVAL_BEETWEN_TRAININGS) {
         
         NSLog(@"have to buy");
         
@@ -125,9 +129,9 @@ static NSInteger maxInterval = 28 * 60 * 60;
         vc.pullUpsArray = self.pullUpsArray;
         vc.dipsArray    = self.dipsArray;
         
-        vc.numberOfPushUps = [NSNumber numberWithInteger:[self.pushLabel.text integerValue]];
-        vc.numberOfPullUps = [NSNumber numberWithInteger:[self.pullLabel.text integerValue]];
-        vc.numberOfDips    = [NSNumber numberWithInteger:[self.dipsLabel.text integerValue]];
+        vc.numberOfPushUps = @([self.pushLabel.text integerValue]);
+        vc.numberOfPullUps = @([self.pullLabel.text integerValue]);
+        vc.numberOfDips    = @([self.dipsLabel.text integerValue]);
         
         [self.navigationController pushViewController:vc animated:YES];
 
@@ -135,19 +139,33 @@ static NSInteger maxInterval = 28 * 60 * 60;
     
 }
 
+- (IBAction)actionShowStatistics:(UIButton *)sender {
+    
+    AIStatisticsTableViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"AIStatisticsTableViewController"];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
+
+
 -(void) actionUpdateTime {
     
-    NSDate* tomorrowTrainingDate = [NSDate dateWithTimeInterval:24 * 60 * 60 sinceDate:self.lastTrainingDate];
+    NSDate* nextTrainingDate = [NSDate dateWithTimeInterval:24 * 60 * 60 sinceDate:self.lastTrainingDate];
     
-    NSTimeInterval intervalSinceNowForTommorow = [tomorrowTrainingDate timeIntervalSinceDate:[NSDate date]];
+    NSDate* today = [NSDate date];
     
-    NSInteger hours   = intervalSinceNowForTommorow / 60 / 60;
-    NSInteger minutes = (intervalSinceNowForTommorow - hours * 60 * 60) / 60;
-    NSInteger seconds = intervalSinceNowForTommorow - hours * 60 * 60 - minutes * 60;
+    NSTimeInterval trainingInterval = [nextTrainingDate timeIntervalSinceDate:today];
     
-    self.nextTrainingTimeLabel.text = [NSString stringWithFormat:@"%ld:%ld:%ld",  hours, minutes,seconds];
+    NSInteger hours   = trainingInterval / 60 / 60;
+    NSInteger minutes = (trainingInterval - hours * 60 * 60) / 60;
+    NSInteger seconds = trainingInterval - hours * 60 * 60 - minutes * 60;
     
-    if (intervalSinceNowForTommorow < 1) {
+    if (self.intervalFromLastTraining < 0) {
+        self.nextTrainingTimeLabel.text = @"00:00:00";
+    } else {
+        self.nextTrainingTimeLabel.text = [NSString stringWithFormat:@"%ld:%ld:%ld",  hours, minutes,seconds];
+    }
+    
+    if (trainingInterval < 1) {
         [self.timer invalidate];
         self.timer = nil;
     }
@@ -224,7 +242,7 @@ static NSInteger maxInterval = 28 * 60 * 60;
         self.lastTrainingDate  = lastProgress.trainingDate;
         NSDate* today = [NSDate date];
         
-        self.curInterval = [today timeIntervalSinceDate:self.lastTrainingDate];
+        self.intervalFromLastTraining = [today timeIntervalSinceDate:self.lastTrainingDate];
         
     }
     

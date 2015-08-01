@@ -5,6 +5,13 @@
 //  Created by Anton Ivashyna on 7/29/15.
 //  Copyright (c) 2015 Anton Ivashyna. All rights reserved.
 //
+//**************************************************************************************
+//
+//      In this view controller user see his current training program. He have to
+//      interact with buttons. A lot of animation stuff (buttons fillings, completion
+//      exercises and so on) do interactions more interesting.
+//
+//**************************************************************************************
 
 #import <UIKit/UIKit.h>
 

@@ -18,14 +18,17 @@
 
 @implementation AITimerView
 
-- (instancetype)init
+- (instancetype) initAndStart
 {
     self = [super init];
     if (self) {
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
-            self.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height - 60);
+            self.frame = CGRectMake(0, 0,
+                                    [[UIScreen mainScreen] bounds].size.width,
+                                    [[UIScreen mainScreen] bounds].size.height - 60);
+            
             self.backgroundColor = [UIColor clearColor];
             
             // background
@@ -68,7 +71,6 @@
             
             drawAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
             
-            // Add the animation to the circle
             [circle addAnimation:drawAnimation forKey:@"drawCircleAnimation"];
             
             // add timer

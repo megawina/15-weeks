@@ -24,9 +24,7 @@
     dispatch_once(&onceToken, ^{
         manager = [[AIDataManager alloc] init];
     });
-    
-    NSLog(@"sharedManager");
-    
+        
     return manager;
     
 }
