@@ -8,10 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-
 #define MIN_INTERVAL_BEETWEN_TRAININGS 20 * 60 * 60
 #define MAX_INTERVAL_BEETWEN_TRAININGS 20 * 60 * 60
-
 
 #define UICOLOR_LIGHT_GRAY   [UIColor colorWithRed:233/255.f green:236/255.f blue:241/255.f  alpha:1]
 #define UICOLOR_LIGHT_BLUE   [UIColor colorWithRed:175/255.f green:208/255.f blue:247/255.f  alpha:1]

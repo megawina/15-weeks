@@ -7,6 +7,7 @@
 //
 
 #import "AIDoneView.h"
+#import "AIUtils.h"
 
 @interface AIDoneView ()
 
@@ -26,20 +27,10 @@
         CGFloat cellHeight = 140;
         
         switch (row) {
-            case 0:
-                offset = 0;
-                break;
-                
-            case 1:
-                offset = cellHeight;
-                break;
-                
-            case 2:
-                offset = cellHeight * 2;
-                break;
-                
-            default:
-                break;
+            case 0: offset = 0; break;
+            case 1: offset = cellHeight; break;
+            case 2: offset = cellHeight * 2; break;
+            default: break;
         }
         
         self.frame = CGRectMake(0, offset,
@@ -49,24 +40,23 @@
         UIView* backgroundView = [[UIView alloc] initWithFrame:
                                   CGRectMake(0, 0, self.frame.size.width, cellHeight)];
         
-        backgroundView.backgroundColor = [UIColor blackColor];
+        backgroundView.backgroundColor = UICOLOR_DARK_GRAY;
         backgroundView.alpha= 0.5f;
         
         [self addSubview:backgroundView];
         
-        // add label 'successful'
+        // label 'successful'
         
-        self.label               = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, cellHeight)];
-        self.label.font          = [UIFont fontWithName:@"AvenirNextCondensed-DemiBold" size:25.f];
-        self.label.textColor     = [UIColor colorWithRed:253/255.f green:190/255.f blue:65/255.f alpha:1];
+        self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, cellHeight)];
+        self.label.font = [UIFont fontWithName:@"AvenirNextCondensed-DemiBold" size:25.f];
+        self.label.textColor = [UIColor colorWithRed:253/255.f green:190/255.f blue:65/255.f alpha:1];
         self.label.textAlignment = NSTextAlignmentCenter;
         
         [self addSubview:self.label];
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0),
-                       ^{
-                           [self animateLabelShowText:@"SUCCESSFUL DONE!" characterDelay:0.05];
-                       });
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            [self animateLabelShowText:@"SUCCESSFUL DONE!" characterDelay:0.05];
+        });
         
     }
     return self;

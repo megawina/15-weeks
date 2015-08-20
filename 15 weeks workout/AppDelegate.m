@@ -26,8 +26,13 @@
     
     [[UINavigationBar appearance] setTintColor:     UICOLOR_DARK_YELLOW];
     [[UINavigationBar appearance] setBarTintColor:  UICOLOR_DARK_GRAY];
-    
     [[UINavigationBar appearance] setTitleTextAttributes:textAttributes];
+    
+    // configure Page Control
+    
+    [UIPageControl appearance].pageIndicatorTintColor = UICOLOR_LIGHT_GRAY;
+    [UIPageControl appearance].currentPageIndicatorTintColor = UICOLOR_DARK_RED;
+    [UIPageControl appearance].backgroundColor = [UIColor clearColor];
     
     
     return YES;

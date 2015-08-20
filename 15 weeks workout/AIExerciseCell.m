@@ -52,7 +52,7 @@
     
     self.doneCount += exerciseCount;
     
-    self.doneLabel.text = [NSString stringWithFormat:@"done: %ld", self.doneCount];
+    self.doneLabel.text = [NSString stringWithFormat:@"done: %ld", (long)self.doneCount];
     
     [self.delegate setExerciseDone:button];
         

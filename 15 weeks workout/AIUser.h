@@ -17,10 +17,10 @@
 
 @interface AIUser : NSObject
 
-@property (assign, nonatomic) NSInteger  trainingDay;               // allows to count what day user training
-@property (strong, nonatomic) NSDate*    lastTrainingDate;          // allows to know if user train everyday
+@property (assign, nonatomic) NSInteger trainingDay;               // allows to count what day user training
+@property (strong, nonatomic) NSDate* lastTrainingDate;          // allows to know if user train everyday
 
-@property (assign, nonatomic) NSMutableArray*   exercisesForCurrentDay; // array of exercises (pull-ups, push-ups, dips)
+@property (assign, nonatomic) NSMutableArray* exercisesForCurrentDay; // array of exercises (pull-ups, push-ups, dips)
 
 + (AIUser*) create;
 + (AIUser*) currentUser;

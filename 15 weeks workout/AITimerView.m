@@ -100,24 +100,22 @@
 -(void)updateTime {
     
     if (!self.seconds) {
-       // self.seconds = 60;
-        self.seconds = 2;
+        self.seconds = 60;
     }
     
     if (self.seconds != 0) {
         self.seconds --;
-        
         
         if (self.seconds < 10) {
             
             if (self.seconds < 3) {
                 self.timerLabel.text = @"CONTINUE";
             } else {
-                self.timerLabel.text = [NSString stringWithFormat:@"0:0%ld", self.seconds];
+                self.timerLabel.text = [NSString stringWithFormat:@"0:0%ld", (long)self.seconds];
             }
             
         } else {
-            self.timerLabel.text = [NSString stringWithFormat:@"0:%ld", self.seconds];
+            self.timerLabel.text = [NSString stringWithFormat:@"0:%ld", (long)self.seconds];
         }
         
     }

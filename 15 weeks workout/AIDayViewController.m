@@ -8,6 +8,7 @@
 #import "AIDayViewController.h"
 #import "AIExercisesViewController.h"
 #import "AIStatisticsTableViewController.h"
+#import "AIPurchaseTableViewController.h"
 
 #import "AIUtils.h"
 #import "AIUser.h"
@@ -15,24 +16,22 @@
 
 #import "AIDataManager.h"
 
-
-@interface AIDayViewController ()
+@interface AIDayViewController () <UIAlertViewDelegate, AIPurchaseTableViewControllerDelegate>
 
 @property (strong,nonatomic) AIUser* user;
 
 @property (weak, nonatomic) IBOutlet UIButton* goButton;
 @property (weak, nonatomic) IBOutlet UILabel *nextTrainingTimeLabel;
 
-
 @property (strong, nonatomic) NSArray* pushUpsArray;
 @property (strong, nonatomic) NSArray* pullUpsArray;
 @property (strong, nonatomic) NSArray* dipsArray;
 
-@property (assign, nonatomic) NSInteger trainingDay;
-@property (assign, nonatomic) NSInteger intervalFromLastTraining;
-
 @property (strong, nonatomic) NSTimer* timer;
 @property (strong, nonatomic) NSDate*  lastTrainingDate;
+
+@property (assign, nonatomic) NSInteger trainingDay;
+@property (assign, nonatomic) NSInteger intervalFromLastTraining;
 
 @end
 
@@ -45,6 +44,7 @@
     
     self.nextTrainingTimeLabel.text = [NSString stringWithFormat:@"00:00:00"];
     
+    
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -53,17 +53,14 @@
     [self.navigationController setNavigationBarHidden:YES];
     
     if (![[NSUserDefaults standardUserDefaults] integerForKey:@"timesLaunched"]) {
-        
         [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"trainingDay"];
-        
     } else {
-        
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
-                                                      target:self
-                                                    selector:@selector(actionUpdateTime)
-                                                    userInfo:nil
-                                                     repeats:YES];
-        
+        self.timer = [NSTimer
+                      scheduledTimerWithTimeInterval:1.0
+                      target:self
+                      selector:@selector(actionUpdateTime)
+                      userInfo:nil
+                      repeats:YES];
     }
     
     [self createProgramForCurrentDay];
@@ -81,10 +78,10 @@
     self.pullUpsArray   = [[[self class] pullUps] subarrayWithRange:NSMakeRange(locationInRange, 5)];
     self.dipsArray      = [[[self class] dips]    subarrayWithRange:NSMakeRange(locationInRange, 5)];
     
-    self.dayLabel.text  = [NSString stringWithFormat:@"DAY %ld",  self.trainingDay];
-    self.pushLabel.text = [NSString stringWithFormat:@"%ld", [self countArray:self.pushUpsArray]];
-    self.pullLabel.text = [NSString stringWithFormat:@"%ld", [self countArray:self.pullUpsArray]];
-    self.dipsLabel.text = [NSString stringWithFormat:@"%ld", [self countArray:self.dipsArray]];
+    self.dayLabel.text  = [NSString stringWithFormat:@"DAY %ld",  (long)self.trainingDay];
+    self.pushLabel.text = [NSString stringWithFormat:@"%ld", (long)[self countArray:self.pushUpsArray]];
+    self.pullLabel.text = [NSString stringWithFormat:@"%ld", (long)[self countArray:self.pullUpsArray]];
+    self.dipsLabel.text = [NSString stringWithFormat:@"%ld", (long)[self countArray:self.dipsArray]];
     
 }
 
@@ -119,7 +116,7 @@
         
     } else if (self.intervalFromLastTraining > MAX_INTERVAL_BEETWEN_TRAININGS) {
         
-        NSLog(@"have to buy");
+        [self showAlertControllerToBuyAbility];
         
     } else {
         
@@ -134,9 +131,7 @@
         vc.numberOfDips    = @([self.dipsLabel.text integerValue]);
         
         [self.navigationController pushViewController:vc animated:YES];
-
     }
-    
 }
 
 - (IBAction)actionShowStatistics:(UIButton *)sender {
@@ -162,7 +157,7 @@
     if (self.intervalFromLastTraining < 0) {
         self.nextTrainingTimeLabel.text = @"00:00:00";
     } else {
-        self.nextTrainingTimeLabel.text = [NSString stringWithFormat:@"%ld:%ld:%ld",  hours, minutes,seconds];
+        self.nextTrainingTimeLabel.text = [NSString stringWithFormat:@"%ld:%ld:%ld",  (long)hours, (long)minutes,(long)seconds];
     }
     
     if (trainingInterval < 1) {
@@ -248,5 +243,46 @@
     
 }
 
+#pragma mark - AlertController
+
+- (void) showAlertControllerToBuyAbility {
+    
+    UIAlertController* buyController =
+    [UIAlertController
+     alertControllerWithTitle:@"More then 28 hours\nfrom last training"
+     message:@"You have to buy ability to continue or all"
+            " your progress should clear and you would not reach your goal !"
+     preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* buyAction = [UIAlertAction
+                                actionWithTitle:@"Buy $0.99"
+                                style:UIAlertActionStyleDefault
+                                handler:^(UIAlertAction* action) {
+                                    
+                                    AIPurchaseTableViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"AIPurchaseTableViewController"];
+                                    vc.delegate = self;
+                                    [self.navigationController pushViewController:vc animated:YES];
+                                    
+                                 }];
+    
+    UIAlertAction* cancelAction = [UIAlertAction
+                                   actionWithTitle:@"Cancel"
+                                   style:UIAlertActionStyleCancel
+                                   handler:^(UIAlertAction* action) {
+                                       
+                                   }];
+    
+    [buyController addAction:buyAction];
+    [buyController addAction:cancelAction];
+    
+    [self.navigationController presentViewController:buyController animated:YES completion:nil];
+    
+}
+
+#pragma mark - AIPurchaseTableViewControllerDelegate
+
+- (void) didBuyAbility {
+    self.intervalFromLastTraining = MIN_INTERVAL_BEETWEN_TRAININGS;
+}
 
 @end

@@ -9,6 +9,7 @@
 #import "AIMainViewController.h"
 #import "AICodecsViewController.h"
 #import "AIDayViewController.h"
+#import "AITutorialViewController.h"
 
 @interface AIMainViewController () <AICodecsViewControllerDelegate>
 
@@ -38,7 +39,7 @@
 
 - (IBAction)actionGo:(UIButton *)sender {
     
-    if (![[NSUserDefaults standardUserDefaults] integerForKey:@"timesLaunched"]) {                  // integer for this key could be created in AIExerciseCiewController
+    if (![[NSUserDefaults standardUserDefaults] integerForKey:@"timesLaunched"]) {                  // integer for this key could be created in AIExerciseViewController
         
         self.codecsViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AICodecsViewController"];
         self.codecsViewController.delegate = self;
@@ -54,8 +55,12 @@
 
 - (IBAction)actionHowToUse:(UIButton *)sender {
     
-    // page view - how to use app
+    #pragma mark - TODO: ADD PAGE VIEW TUTORIAL
     
+    AITutorialViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:@"AITutorialViewController"];
+    
+    [self.navigationController presentViewController:vc animated:YES completion:nil];
+
 }
 
 
