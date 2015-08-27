@@ -157,7 +157,7 @@ static NSString* exNames[] = {@"PUSH-UPS", @"PULL-UPS", @"DIPS"};
     
     if (button.tag != 4) {
         
-       [self showTimerView];
+       //[self showTimerView];
         
     } else {
         
