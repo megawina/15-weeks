@@ -2,7 +2,8 @@
 
 [![Download app](http://dpal.dunnpal.org/wp-content/uploads/2014/01/Download_on_the_App_Store_Badge_US-UK_135x40-300x89.jpg)](http://appstore.com/15weeksworkout)
 
-####Used technologies
+####**Used technologies**
+
 - CoreData
 - StoreKit
 - Animations
