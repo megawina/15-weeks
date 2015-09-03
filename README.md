@@ -1,6 +1,6 @@
 ####App, that allows anybody to have beautiful figure only in 15 weeks!
 
-[![Download app](http://dpal.dunnpal.org/wp-content/uploads/2014/01/Download_on_the_App_Store_Badge_US-UK_135x40-300x89.jpg)](http://appstore.com/15weeksworkout)
+[![Download app](http://dpal.dunnpal.org/wp-content/uploads/2014/01/Download_on_the_App_Store_Badge_US-UK_135x40-300x89.jpg)](https://itunes.apple.com/ua/app/15-weeks-workout/id1031084551?mt=8)
 
 ####**Used technologies**
 
