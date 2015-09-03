@@ -8,6 +8,8 @@
 - StoreKit
 - Animations
 
+---
+
 - Every week - *new program*
 - All history is available
 - *Tracking* of exercises
