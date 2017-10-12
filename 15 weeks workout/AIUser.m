@@ -13,7 +13,6 @@
 + (AIUser*) create {
     
     AIUser* user = [[AIUser alloc] init];
-    
     user.trainingDay = 1;
     [[NSUserDefaults standardUserDefaults] setInteger:user.trainingDay forKey:@"trainingDay"];
     

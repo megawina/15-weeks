@@ -19,7 +19,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    
     // basic configurations of navigation bar
     
     NSDictionary* textAttributes = @{NSForegroundColorAttributeName : UICOLOR_DARK_YELLOW};
